@@ -18,6 +18,9 @@ Entity.new = function(type, priority)
 	T.width = 0
 	T.height = 0
 
+	T.visible__physics = true
+	T.visible__render = true
+
 	T.entity__priority = priority
 	T.entity__type = type
 	T.entity__index = 0
