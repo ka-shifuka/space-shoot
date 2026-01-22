@@ -80,6 +80,10 @@ Joystick.release = function(self, id, x, y)
 	end
 end
 
+Joystick.get_relative = function(self)
+	return math.max(math.abs(self.dx), math.abs(self.dy))
+end
+
 local love_graphics = love.graphics
 Joystick.draw = function(self, opacity)
 	opacity = opacity or 1
@@ -87,7 +91,8 @@ Joystick.draw = function(self, opacity)
 	love_graphics.push()
 	love_graphics.translate(self.x, self.y)
 	love_graphics.rectangle("line", 0, 0, self.width, self.height)
-	love_graphics.print(string.format("dx: %f, dy: %f", self.dx, self.dy), self.width)
+	love_graphics.print(string.format("dx: %f, dy: %f", self.dx, self.dy), self.width + 10)
+	love_graphics.print(string.format("relative: %f", self:get_relative()), self.width + 10, 20)
 	love_graphics.pop()
 
 	love_graphics.push()
