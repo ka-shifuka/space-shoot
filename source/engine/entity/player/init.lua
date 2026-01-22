@@ -3,6 +3,16 @@ local Player = {}
 Player.__index = Player
 
 Player.update = function(self, dt)
+	local new_angle = math.atan2(m.dy, m.dx) + math.rad(90)
+	self.physics:setLinearVelocity(self.velocity__x, self.velocity__y)
+	self.physics:setAngle(new_angle)
+
+	local cos = math.cos(new_angle)
+	local sin = math.sin(new_angle)
+
+	self.velocity__x = self.speed * cos * dt
+	self.velocity__y = self.speed * sin * dt
+
 	self.x = self.physics:getX()
 	self.y = self.physics:getY()
 	self.angle = self.physics:getAngle()
@@ -28,6 +38,10 @@ Player.new = function(options)
 	instance.width = 10
 	instance.height = 36
 	instance.angle = 0
+
+	instance.velocity__x = 0
+	instance.velocity__y = 100
+	instance.speed = 100
 
 	---@type Windfield.Collider
 	instance.physics = World_WF:newBSGRectangleCollider(

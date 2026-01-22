@@ -26,34 +26,27 @@ local Button = {}
 
 ---@param fun fun(self: Mumo.Button)
 Button.on_press = function(self, fun)
-	self._on_press_handler = fun
+	self.handler__on_press = fun
 	return self
 end
 ---@param fun fun(self: Mumo.Button)
 Button.on_release = function(self, fun)
-	self._on_release_handler = fun
+	self.handler__on_release = fun
 	return self
-end
-
----@param T Mumo.Button
----@param x number
----@param y number
-local function check_touch(T, x, y)
-	return (
-		x > T.x and x < T.x + T.width and
-		y > T.y and y < T.y + T.height
-	)
 end
 
 Button.pressed = function(self, id, x, y)
 	if self.id then return end
 
-	if check_touch(self, x, y) then
+	if
+		x > self.x and x < self.x + self.width and
+		y > self.y and y < self.y + self.height
+	then
 		self.id = id
-		self._is_clicked = true
+		self.is_click = true
 
-		if self._on_press_handler then
-			self._on_press_handler(self)
+		if self.handler__on_press then
+			self.handler__on_press(self)
 		end
 	end
 end
@@ -61,10 +54,10 @@ end
 Button.released = function(self, id, x, y)
 	if self.id == id then
 		self.id = nil
-		self._is_clicked = false
+		self.is_click = false
 
-		if self._on_release_handler then
-			self._on_release_handler(self)
+		if self.handler__on_release then
+			self.handler__on_release(self)
 		end
 	end
 end
@@ -130,7 +123,7 @@ Button.new = function(options)
 	instance.offset_text_y = options.offset_text_y or 0
 	instance.scale = options.scale or 1
 
-	instance.font = options.font or Fonts.proto_bold_sm
+	instance.font = options.font or love.graphics.newFont(10)
 	instance.text = options.text or ""
 
 	instance.border = options.border or false
@@ -142,9 +135,11 @@ Button.new = function(options)
 	instance.color = options.color or { 1, 1, 1, 1 }
 	instance.background_image = options.background_image or nil
 
-	instance._on_press_handler = nil
-	instance._on_release_handler = nil
-	instance._is_clicked = false
+	---@type fun(self: Mumo.Button)
+	instance.handler__on_press = nil
+	---@type fun(self: Mumo.Button)
+	instance.handler__on_release = nil
+	instance.is_click = false
 
 	instance.id = nil
 
