@@ -1,3 +1,7 @@
+---@class EntityMetaNewOptions
+---@field x number
+---@field y number
+
 local Entity = {}
 
 Entity.new = function(type, priority)
