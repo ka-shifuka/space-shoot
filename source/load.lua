@@ -7,3 +7,7 @@ Entities = require "source.engine.entities"
 
 Color = require "source.ui.mumo.color"
 Cam = require "source.ui.cam"
+
+require "source.init-all"
+require "source.update-all"
+require "source.draw-all"

@@ -5,7 +5,7 @@ Cam.mechanic = {}
 Cam.mechanic.x = 0
 Cam.mechanic.y = 9
 Cam.mechanic.tween = nil
-Cam.mechanic.zoom_v = 2
+Cam.mechanic.zoom_v = 1.5
 Cam.mechanic.zoom_v_tween = nil
 
 Cam.mechanic.shake_duration = 0
@@ -48,7 +48,7 @@ Cam.mechanic.update = function(self, dt)
 		Cam:zoomTo(self.zoom_v)
 		if self.zoom_v_tween:update(dt) then self.zoom_v_tween = nil end
 	end
-	Cam:zoomTo(self.zoom_v - self.follow.velocity__d / 800)
+	Cam:zoomTo(self.zoom_v - self.follow.velocity__d / 1600)
 
 	self.shake_duration = self.shake_duration - dt
 

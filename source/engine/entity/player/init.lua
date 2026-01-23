@@ -41,10 +41,9 @@ Player.draw = function(self)
 	love_graphics.push()
 	love_graphics.translate(self.x, self.y)
 	love_graphics.rotate(self.angle)
-
 	love_graphics.translate(-24, -24)
-	love_graphics.draw(Sprites.Player.rocket, 0, 0)
 
+	love_graphics.draw(Sprites.Player.rocket, 0, 0)
 	love_graphics.pop()
 end
 
@@ -64,7 +63,7 @@ Player.new = function(options)
 
 	instance.state__move = MoveState.IDLE
 	instance.velocity__d = 0
-	instance.speed = 1000
+	instance.speed = 600
 
 	---@type Windfield.Collider
 	instance.physics = World_WF:newBSGRectangleCollider(
