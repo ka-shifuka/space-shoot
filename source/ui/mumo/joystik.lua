@@ -3,6 +3,8 @@
 ---@field y number
 ---@field width number
 ---@field height number
+---
+---@field background_image love.graphics.Image
 
 ---@class Mumo.Joystick : Mumo.Joystick__Field
 local Joystick = {}
@@ -126,15 +128,43 @@ Joystick.draw = function(self, opacity)
 	opacity = opacity or 1
 
 	love_graphics.push()
-	love_graphics.translate(self.x, self.y)
-	love_graphics.rectangle("line", 0, 0, self.width, self.height)
-	love_graphics.print(string.format("dx: %f, dy: %f", self.dx, self.dy), self.width + 10)
-	love_graphics.print(string.format("relative: %f", self:get_relative()), self.width + 10, 20)
+	--- Make the draw origin in the center
+	love_graphics.translate(
+		self.x + self.width / 2,
+		self.y + self.height / 2
+	)
+	--- Do transform here
+	love_graphics.translate(-self.width / 2, -self.height / 2)
+
+
+	if self.background_image then
+		love.graphics.draw(
+			self.background_image, 0, 0, 0,
+			self.width / self.background_image:getWidth(),
+			self.height / self.background_image:getHeight()
+		)
+	else
+		love_graphics.rectangle("line", 0, 0, self.width, self.height)
+	end
+
 	love_graphics.pop()
 
 	love_graphics.push()
-	love_graphics.translate(self.joy__x, self.joy__y)
-	love_graphics.rectangle("line", 0, 0, self.joy__width, self.joy__height)
+	love_graphics.translate(
+		self.joy__x + self.joy__width / 2,
+		self.joy__y + self.joy__height / 2
+	)
+	--- Do transform here
+	love_graphics.translate(-self.joy__width / 2, -self.joy__height / 2)
+	if self.background_image then
+		love.graphics.draw(
+			self.background_image, 0, 0, 0,
+			self.joy__width / self.background_image:getWidth(),
+			self.joy__height / self.background_image:getHeight()
+		)
+	else
+		love_graphics.rectangle("line", 0, 0, self.width, self.height)
+	end
 	love_graphics.pop()
 end
 
@@ -150,6 +180,7 @@ Joystick.new = function(options)
 	instance.height = options.height
 
 	instance.no_riset = false
+	instance.background_image = options.background_image or nil
 
 	instance.center__x = instance.x + instance.width / 2
 	instance.center__y = instance.y + instance.height / 2

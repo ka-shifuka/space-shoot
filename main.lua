@@ -20,12 +20,17 @@ love.load = function()
 			y = love.graphics.getHeight() - 120,
 			width = 80,
 			height = 80,
-
-			no_riset = true
+			background_image = love.graphics.newImage("assets/ui/control/joystick.png")
 		})
+		---@diagnostic disable-next-line : unused-local
 		:on_press(function(T)
 			player.state__move = MoveState.MOVE
 		end)
+		---@diagnostic disable-next-line : unused-local
+		:on_move(function(T, dx, dy)
+			player:set_v_angle(dx, dy)
+		end)
+		---@diagnostic disable-next-line : unused-local
 		:on_release(function(T)
 			player.state__move = MoveState.IDLE
 		end)

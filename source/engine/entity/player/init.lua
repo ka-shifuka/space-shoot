@@ -2,20 +2,22 @@
 local Player = {}
 Player.__index = Player
 
-local mq = { x = 0, y = 0 }
+Player.set_v_angle = function(self, dx, dy)
+	self.tween__angle = Tween.new(0.3, self, {
+		angle__y = dy,
+		angle__x = dx
+	})
+end
 
 Player.update = function(self, dt)
-	local tween = Tween.new(0.3, mq, { x = m.dx, y = m.dy })
-	tween:update(dt)
+	if self.tween__angle then self.tween__angle:update(dt) end
 
-	local new_angle = math.atan2(mq.y, mq.x) + math.rad(90)
+	local new_angle = math.atan2(self.angle__y, self.angle__x) + math.rad(90)
 	local velox, veloy = self.physics:getLinearVelocity()
 	self.velocity__d = math.sqrt(velox ^ 2 + veloy ^ 2)
 
-	self.physics:setAngle(new_angle)
-
 	if self.state__move == MoveState.MOVE then
-		local angle = math.atan2(mq.y, mq.x)
+		local angle = math.atan2(self.angle__y, self.angle__x)
 		if self.velocity__d < 800 then
 			local cos = math.cos(angle)
 			local sin = math.sin(angle)
@@ -26,7 +28,9 @@ Player.update = function(self, dt)
 	self.x = self.physics:getX()
 	self.y = self.physics:getY()
 	self.angle = self.physics:getAngle()
+
 	self.physics:setLinearVelocity(velox * 0.96, veloy * 0.96)
+	self.physics:setAngle(new_angle)
 end
 
 local love_graphics = love.graphics
@@ -49,6 +53,10 @@ Player.new = function(options)
 	instance.width = 10
 	instance.height = 36
 	instance.angle = 0
+
+	instance.angle__x = 0
+	instance.angle__y = 0
+	instance.tween__angle = nil
 
 	instance.state__move = MoveState.IDLE
 	instance.velocity__d = 0
