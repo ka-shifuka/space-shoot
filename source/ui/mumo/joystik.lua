@@ -4,7 +4,7 @@
 ---@field width number
 ---@field height number
 ---
----@field background_image love.graphics.Image
+---@field background_image? love.graphics.Image
 
 ---@class Mumo.Joystick : Mumo.Joystick__Field
 local Joystick = {}
@@ -163,7 +163,7 @@ Joystick.draw = function(self, opacity)
 			self.joy__height / self.background_image:getHeight()
 		)
 	else
-		love_graphics.rectangle("line", 0, 0, self.width, self.height)
+		love_graphics.rectangle("line", 0, 0, self.joy__width, self.joy__height)
 	end
 	love_graphics.pop()
 end

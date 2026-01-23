@@ -19,13 +19,13 @@ end
 
 ---@diagnostic disable-next-line : duplicate-set-field
 love.touchpressed = function(id, x, y)
-	m:pressed(id, x, y)
+	Ui:pressed(id, x, y)
 end
 ---@diagnostic disable-next-line : duplicate-set-field
 love.touchmoved = function(id, x, y)
-	m:moved(id, x, y)
+	Ui:moved(id, x, y)
 end
 ---@diagnostic disable-next-line : duplicate-set-field
 love.touchreleased = function(id, x, y)
-	m:release(id, x, y)
+	Ui:released(id, x, y)
 end

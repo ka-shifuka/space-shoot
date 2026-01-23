@@ -8,6 +8,9 @@ Player.set_v_angle = function(self, dx, dy)
 		angle__x = dx
 	})
 end
+Player.set_relative_speed = function(self, relative_speed)
+	self.relative_speed = relative_speed
+end
 
 Player.update = function(self, dt)
 	if self.tween__angle then self.tween__angle:update(dt) end
@@ -18,7 +21,7 @@ Player.update = function(self, dt)
 
 	if self.state__move == MoveState.MOVE then
 		local angle = math.atan2(self.angle__y, self.angle__x)
-		if self.velocity__d < 800 * m:get_relative() then
+		if self.velocity__d < 800 * self.relative_speed then
 			local cos = math.cos(angle)
 			local sin = math.sin(angle)
 			self.physics:applyForce(self.speed * cos, self.speed * sin)
@@ -64,6 +67,7 @@ Player.new = function(options)
 	instance.state__move = MoveState.IDLE
 	instance.velocity__d = 0
 	instance.speed = 600
+	instance.relative_speed = 0
 
 	---@type Windfield.Collider
 	instance.physics = World_WF:newBSGRectangleCollider(
