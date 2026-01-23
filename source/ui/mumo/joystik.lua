@@ -8,21 +8,52 @@
 local Joystick = {}
 Joystick.__index = Joystick
 
+---@param fun fun(self: Mumo.Joystick)
+Joystick.on_press = function(self, fun)
+	self.handler__on_press = fun
+	return self
+end
+---@param fun fun(self: Mumo.Joystick)
+Joystick.on_release = function(self, fun)
+	self.handler__on_release = fun
+	return self
+end
+---@param fun fun(self: Mumo.Joystick, dx:number, dy:number)
+Joystick.on_move = function(self, fun)
+	self.handler__on_move = fun
+	return self
+end
+
 Joystick.pressed = function(self, id, x, y)
 	if self.id then return end
 	if
-		x > self.x and x < self.x + self.width and
-		y > self.y and y < self.y + self.height
+		x > self.x - self.joy__width / 2 and x < self.x + self.width + self.joy__width / 2 and
+		y > self.y - self.joy__height / 2 and y < self.y + self.height + self.joy__height / 2
 	then
 		self.id = id
 		self.joy__x = x - self.joy__width / 2
 		self.joy__y = y - self.joy__height / 2
 
+		--- need this for self feedback
 		self.joy__center_x = self.joy__x + self.joy__width / 2
 		self.joy__center_y = self.joy__y + self.joy__height / 2
 
-		self.dx = (self.joy__center_x - self.center__x) / self.radius__x
-		self.dy = (self.joy__center_y - self.center__y) / self.radius__y
+		--- X axis correction
+		if self.joy__center_x > self.x + self.width then
+			self.joy__x = self.x + self.width - self.joy__width / 2
+		elseif self.joy__center_x < self.x then
+			self.joy__x = self.x - self.joy__width / 2
+		end
+		--- Y axis correction
+		if self.joy__center_y > self.y + self.height then
+			self.joy__y = self.y + self.height - self.joy__height / 2
+		elseif self.joy__center_y < self.y then
+			self.joy__y = self.y - self.joy__height / 2
+		end
+		--- set correction
+		self.joy__center_x = self.joy__x + self.joy__width / 2
+		self.joy__center_y = self.joy__y + self.joy__height / 2
+
 
 		if self.handler__on_press then
 			self.handler__on_press(self)
@@ -58,7 +89,7 @@ Joystick.moved = function(self, id, x, y)
 		self.dy = (self.joy__center_y - self.center__y) / self.radius__y
 
 		if self.handler__on_move then
-			self.handler__on_move(self)
+			self.handler__on_move(self, self.dx, self.dy)
 		end
 	end
 end
@@ -66,13 +97,15 @@ end
 Joystick.release = function(self, id, x, y)
 	if self.id == id then
 		self.id = nil
-		self.joy__x = self.center__x - self.joy__width / 2
-		self.joy__y = self.center__y - self.joy__height / 2
-		self.joy__center_x = self.center__x
-		self.joy__center_y = self.center__y
+		if not self.no_riset then
+			self.joy__x = self.center__x - self.joy__width / 2
+			self.joy__y = self.center__y - self.joy__height / 2
+			self.joy__center_x = self.center__x
+			self.joy__center_y = self.center__y
 
-		self.dx = (self.joy__center_x - self.center__x) / self.radius__x
-		self.dy = (self.joy__center_y - self.center__y) / self.radius__y
+			self.dx = (self.joy__center_x - self.center__x) / self.radius__x
+			self.dy = (self.joy__center_y - self.center__y) / self.radius__y
+		end
 
 		if self.handler__on_release then
 			self.handler__on_release(self)
@@ -82,6 +115,10 @@ end
 
 Joystick.get_relative = function(self)
 	return math.max(math.abs(self.dx), math.abs(self.dy))
+end
+Joystick.set_no_riset = function(self)
+	self.no_riset = true
+	return self
 end
 
 local love_graphics = love.graphics
@@ -112,6 +149,8 @@ Joystick.new = function(options)
 	instance.width = options.width
 	instance.height = options.height
 
+	instance.no_riset = false
+
 	instance.center__x = instance.x + instance.width / 2
 	instance.center__y = instance.y + instance.height / 2
 
@@ -136,7 +175,7 @@ Joystick.new = function(options)
 	instance.handler__on_press = nil
 	---@type fun(self: Mumo.Joystick)
 	instance.handler__on_release = nil
-	---@type fun(self: Mumo.Joystick)
+	---@type fun(self: Mumo.Joystick, dx:number, dy:number)
 	instance.handler__on_move = nil
 
 	setmetatable(instance, Joystick)

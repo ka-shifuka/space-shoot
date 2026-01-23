@@ -2,20 +2,31 @@
 local Player = {}
 Player.__index = Player
 
+local mq = { x = 0, y = 0 }
+
 Player.update = function(self, dt)
-	local new_angle = math.atan2(m.dy, m.dx) + math.rad(90)
-	self.physics:setLinearVelocity(self.velocity__x, self.velocity__y)
+	local tween = Tween.new(0.3, mq, { x = m.dx, y = m.dy })
+	tween:update(dt)
+
+	local new_angle = math.atan2(mq.y, mq.x) + math.rad(90)
+	local velox, veloy = self.physics:getLinearVelocity()
+	self.velocity__d = math.sqrt(velox ^ 2 + veloy ^ 2)
+
 	self.physics:setAngle(new_angle)
 
-	local cos = math.cos(new_angle)
-	local sin = math.sin(new_angle)
-
-	self.velocity__x = self.speed * cos * dt
-	self.velocity__y = self.speed * sin * dt
+	if self.state__move == MoveState.MOVE then
+		local angle = math.atan2(mq.y, mq.x)
+		if self.velocity__d < 800 then
+			local cos = math.cos(angle)
+			local sin = math.sin(angle)
+			self.physics:applyForce(self.speed * cos, self.speed * sin)
+		end
+	end
 
 	self.x = self.physics:getX()
 	self.y = self.physics:getY()
 	self.angle = self.physics:getAngle()
+	self.physics:setLinearVelocity(velox * 0.96, veloy * 0.96)
 end
 
 local love_graphics = love.graphics
@@ -39,9 +50,9 @@ Player.new = function(options)
 	instance.height = 36
 	instance.angle = 0
 
-	instance.velocity__x = 0
-	instance.velocity__y = 100
-	instance.speed = 100
+	instance.state__move = MoveState.IDLE
+	instance.velocity__d = 0
+	instance.speed = 1000
 
 	---@type Windfield.Collider
 	instance.physics = World_WF:newBSGRectangleCollider(

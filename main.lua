@@ -16,11 +16,22 @@ love.load = function()
 	Cam.mechanic:set_follow(player)
 
 	m = j.new({
-		x = 100,
-		y = love.graphics.getHeight() - 120,
-		width = 80,
-		height = 80
-	})
+			x = 100,
+			y = love.graphics.getHeight() - 120,
+			width = 80,
+			height = 80,
+
+			no_riset = true
+		})
+		:on_press(function(T)
+			player.state__move = MoveState.MOVE
+		end)
+		:on_release(function(T)
+			player.state__move = MoveState.IDLE
+		end)
+		:set_no_riset()
+
+	l = love.graphics.newImage("assets/Untitled107_20260119185154.png")
 
 	love.graphics.setBackgroundColor(Color.hex_to_rgba("#281e22"))
 end
@@ -37,6 +48,8 @@ love.draw = function()
 	love.graphics.printf("Mumo joystic component test", 0, 10, love.graphics.getWidth(), "center")
 
 	Cam:attach()
+	love.graphics.draw(l)
+
 	Engine.draw()
 	Cam:detach()
 

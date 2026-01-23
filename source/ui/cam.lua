@@ -10,6 +10,7 @@ Cam.mechanic.zoom_v_tween = nil
 
 Cam.mechanic.shake_duration = 0
 
+---@type Player
 Cam.mechanic.follow = nil
 
 Cam.mechanic.setup = function(self, follow)
@@ -47,7 +48,7 @@ Cam.mechanic.update = function(self, dt)
 		Cam:zoomTo(self.zoom_v)
 		if self.zoom_v_tween:update(dt) then self.zoom_v_tween = nil end
 	end
-	Cam:zoomTo(self.zoom_v)
+	Cam:zoomTo(self.zoom_v - self.follow.velocity__d / 800)
 
 	self.shake_duration = self.shake_duration - dt
 
