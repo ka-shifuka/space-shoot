@@ -18,7 +18,7 @@ Player.update = function(self, dt)
 
 	if self.state__move == MoveState.MOVE then
 		local angle = math.atan2(self.angle__y, self.angle__x)
-		if self.velocity__d < 800 then
+		if self.velocity__d < 800 * m:get_relative() then
 			local cos = math.cos(angle)
 			local sin = math.sin(angle)
 			self.physics:applyForce(self.speed * cos, self.speed * sin)
@@ -31,6 +31,9 @@ Player.update = function(self, dt)
 
 	self.physics:setLinearVelocity(velox * 0.96, veloy * 0.96)
 	self.physics:setAngle(new_angle)
+
+	self.fire_anchor.x = math.cos(self.angle + math.rad(90)) * self.fire_anchor_distance + self.x
+	self.fire_anchor.y = math.sin(self.angle + math.rad(90)) * self.fire_anchor_distance + self.y
 end
 
 local love_graphics = love.graphics
@@ -41,6 +44,7 @@ Player.draw = function(self)
 
 	love_graphics.translate(-24, -24)
 	love_graphics.draw(Sprites.Player.rocket, 0, 0)
+
 	love_graphics.pop()
 end
 
@@ -72,6 +76,9 @@ Player.new = function(options)
 	)
 	instance.physics:setCollisionClass(CollisionClass.PLAYER)
 	instance.physics:setObject(instance)
+
+	instance.fire_anchor = Entities.Effect__Fire.crete_anchor()
+	instance.fire_anchor_distance = 20
 
 	setmetatable(instance, Player)
 	return instance ---@type Player

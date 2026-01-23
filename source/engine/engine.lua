@@ -18,6 +18,11 @@ Engine.add = function(...)
 	end)
 end
 
+---@param entity Entity
+Engine.remove = function(entity)
+	table.remove(EntityList, entity.entity__index)
+end
+
 Engine.update = function(dt)
 	for i, entity in ipairs(EntityList) do
 		entity.entity__index = i
