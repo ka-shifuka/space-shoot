@@ -1,15 +1,18 @@
-local joystick = require "source.ui.mumo.joystik"
+local Joystick = require "source.ui.mumo.joystik"
+local Button = require "source.ui.mumo.button"
 
 local T = {}
 
 ---@type Effect.Fire | nil
 local fire = nil
 
-T.joy = joystick.new({
+T.joy = Joystick.new({
 		x = 100,
 		y = love.graphics.getHeight() - 120,
 		width = 80,
 		height = 80,
+
+		background_image = Sprites.Ui.Control__joystick
 	})
 	---@diagnostic disable-next-line : unused-local
 	:on_press(function(self)
@@ -39,18 +42,37 @@ T.joy = joystick.new({
 		player.state__move = MoveState.IDLE
 	end)
 
+T.boost_btn = Button.new({
+		x = love.graphics.getWidth() - 140,
+		y = love.graphics.getHeight() - 140,
+		width = 52,
+		height = 52,
+		background_image = Sprites.Ui.Control__b
+	})
+	:on_press(function(self)
+		self.background_image = Sprites.Ui.Control__click_b
+		player.is_boost = true
+	end)
+	:on_release(function(self)
+		self.background_image = Sprites.Ui.Control__b
+		player.is_boost = false
+	end)
+
 T.draw = function(self)
 	self.joy:draw()
+	self.boost_btn:draw()
 end
 
 T.pressed = function(self, id, x, y)
 	self.joy:pressed(id, x, y)
-end
-T.moved = function(self, id, x, y)
-	self.joy:moved(id, x, y)
+	self.boost_btn:pressed(id, x, y)
 end
 T.released = function(self, id, x, y)
 	self.joy:release(id, x, y)
+	self.boost_btn:released(id, x, y)
+end
+T.moved = function(self, id, x, y)
+	self.joy:moved(id, x, y)
 end
 
 return T

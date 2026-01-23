@@ -37,7 +37,6 @@ end
 
 Button.pressed = function(self, id, x, y)
 	if self.id then return end
-
 	if
 		x > self.x and x < self.x + self.width and
 		y > self.y and y < self.y + self.height
@@ -55,7 +54,6 @@ Button.released = function(self, id, x, y)
 	if self.id == id then
 		self.id = nil
 		self.is_click = false
-
 		if self.handler__on_release then
 			self.handler__on_release(self)
 		end
@@ -63,7 +61,6 @@ Button.released = function(self, id, x, y)
 end
 
 local love_graphics = love.graphics
-
 Button.draw = function(self, opacity)
 	opacity = opacity or 1
 
