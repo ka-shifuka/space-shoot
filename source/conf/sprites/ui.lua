@@ -9,4 +9,6 @@ Ui.Control__b = new_image("assets/ui/control/b.png")
 Ui.Control__click_a = new_image("assets/ui/control/c_a.png")
 Ui.Control__click_b = new_image("assets/ui/control/c_b.png")
 
+Ui.Background__planet = new_image("assets/ui/background/planet.png")
+
 return Ui

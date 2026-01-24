@@ -67,6 +67,13 @@ T.attack_btn = Button.new({
 	})
 	:on_press(function(self)
 		self.background_image = Sprites.Ui.Control__click_a
+
+		local bullet = Entities.Bullet__Small.new({
+			x = player.x,
+			y = player.y,
+			angle = player.angle
+		})
+		Engine.add(bullet)
 	end)
 	:on_release(function(self)
 		self.background_image = Sprites.Ui.Control__a
@@ -74,7 +81,6 @@ T.attack_btn = Button.new({
 
 T.draw = function(self)
 	self.joy:draw()
-
 	self.boost_btn:draw()
 	self.attack_btn:draw()
 end
