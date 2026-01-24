@@ -1,3 +1,4 @@
+math.randomseed(os.time())
 require "source.preload"
 
 ---@diagnostic disable-next-line : duplicate-set-field
