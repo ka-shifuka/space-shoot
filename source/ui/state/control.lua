@@ -58,18 +58,36 @@ T.boost_btn = Button.new({
 		player.is_boost = false
 	end)
 
+T.attack_btn = Button.new({
+		x = love.graphics.getWidth() - 220,
+		y = love.graphics.getHeight() - 100,
+		width = 52,
+		height = 52,
+		background_image = Sprites.Ui.Control__a
+	})
+	:on_press(function(self)
+		self.background_image = Sprites.Ui.Control__click_a
+	end)
+	:on_release(function(self)
+		self.background_image = Sprites.Ui.Control__a
+	end)
+
 T.draw = function(self)
 	self.joy:draw()
+
 	self.boost_btn:draw()
+	self.attack_btn:draw()
 end
 
 T.pressed = function(self, id, x, y)
 	self.joy:pressed(id, x, y)
 	self.boost_btn:pressed(id, x, y)
+	self.attack_btn:pressed(id, x, y)
 end
 T.released = function(self, id, x, y)
 	self.joy:release(id, x, y)
 	self.boost_btn:released(id, x, y)
+	self.attack_btn:released(id, x, y)
 end
 T.moved = function(self, id, x, y)
 	self.joy:moved(id, x, y)
