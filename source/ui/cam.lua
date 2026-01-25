@@ -49,8 +49,8 @@ Cam.update = function(self, dt)
 	private_cam:lookAt(self.x, self.y)
 
 	background_l1:lookAt(self.x / 100, self.y / 100)
-	background_l2:lookAt(self.x / 4, self.y / 4)
-	background_l3:lookAt(self.x / 3, self.y / 3)
+	background_l2:lookAt(self.x / 3, self.y / 3)
+	background_l3:lookAt(self.x / 2, self.y / 2)
 	background_l4:lookAt(self.x, self.y)
 end
 

@@ -46,7 +46,7 @@ function DrawAll()
 	love.graphics.clear()
 
 	love.graphics.setColor(Color.BLACK)
-	love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
+	love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 	love.graphics.setColor(Color.ABSOLUTE_WHITE)
 
 

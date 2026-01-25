@@ -1,5 +1,5 @@
 float warp = 0.3;
-float scan = 0.75;
+float scan = 0.3;
 
 vec4 effect(vec4 color, sampler2D Texture, vec2 uv, vec2 screen_coord) {
     vec2 dc = abs(0.5 - uv);
