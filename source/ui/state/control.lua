@@ -24,7 +24,10 @@ T.joy = Joystick.new({
 		fire = Entities.Effect__Fire.new({
 			x = player.fire_anchor.x,
 			y = player.fire_anchor.y,
-			anchor = player.fire_anchor
+			anchor = player.fire_anchor,
+
+			scale = 0.7,
+			delta_scale = 3,
 		})
 		Engine.add(fire)
 		player.state__move = MoveState.MOVE

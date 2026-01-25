@@ -1,9 +1,9 @@
 do --- Enums
+	Color = require "source.enum.color"
 	MoveState = require "source.enum.move-state"
 	CollisionClass = require "source.enum.collisiob-class"
 	EntityType = require "source.enum.entity-type"
 	Z = require "source.enum.z"
-
 	TweenEasing = require "source.enum.tween-easing"
 end
 

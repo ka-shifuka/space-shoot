@@ -7,7 +7,7 @@ love.load = function()
 	require "source.load"
 	InitAll()
 
-	love.graphics.setBackgroundColor(Color.hex_to_rgba("#281e22"))
+	love.graphics.setBackgroundColor(Color.BLACK)
 end
 ---@diagnostic disable-next-line : duplicate-set-field
 love.update = function(dt)

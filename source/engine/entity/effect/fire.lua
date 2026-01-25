@@ -2,6 +2,11 @@
 ---@field x number
 ---@field y number
 ---@field anchor Effect.FireAnchor | any
+---
+--- This use for decreasing the scale factor, default is 5
+---@field delta_scale? number
+--- This use for scaling at the anchor, default is 1
+---@field scale? number
 
 ---@class Effect.Fire : Effect.Fire__Field
 local Fire = {}
@@ -23,7 +28,7 @@ Fire.crete_particle = function(self)
 	local particle = {}
 	particle.x = self.x
 	particle.y = self.y
-	particle.scale = 1
+	particle.scale = self.scale
 
 	table.insert(self.render, particle)
 end
@@ -38,7 +43,7 @@ Fire.update = function(self, dt)
 	end
 
 	for i, p in ipairs(self.render) do
-		p.scale = p.scale - 5 * dt
+		p.scale = p.scale - self.delta_scale * dt
 		if p.scale <= 0 then
 			table.remove(self.render, i)
 		end
@@ -79,6 +84,8 @@ Fire.new = function(options)
 	instance.x = options.x
 	instance.y = options.y
 	instance.anchor = options.anchor
+	instance.scale = options.scale or 1
+	instance.delta_scale = options.delta_scale or 5
 
 	---@type Effect.FireParticle[]
 	instance.render = {}
