@@ -39,7 +39,17 @@ for i = 1, 50, 1 do
 	table.insert(as3, a)
 end
 
+local m_canvas = love.graphics.newCanvas()
+
 function DrawAll()
+	love.graphics.setCanvas(m_canvas)
+	love.graphics.clear()
+
+	love.graphics.setColor(Color.BLACK)
+	love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
+	love.graphics.setColor(Color.ABSOLUTE_WHITE)
+
+
 	love.graphics.setFont(Font.proto_bold_sm)
 	Cam:draw_background_l1(function()
 		love.graphics.draw(Sprites.Ui.Background__planet, 5, 6)
@@ -90,13 +100,28 @@ function DrawAll()
 	Cam:draw(function()
 		Engine.draw()
 	end)
+
+
 	Ui:draw()
 
 	love.graphics.setFont(Font.around_bold_xxs)
+	love.graphics.push()
 	love.graphics.setColor(Color.WHITE)
+	love.graphics.translate(
+		love.graphics.getWidth() / 2 - 100,
+		love.graphics.getHeight() - 100
+	)
 	love.graphics.printf(string.format("coordiante x: %d, y: %d", player.x, player.y), 0, 10, love.graphics.getWidth(),
-		"center")
+		"left")
 	love.graphics.printf(string.format("speed: %d", player.velocity__d), 0, 30, love.graphics.getWidth(),
-		"center")
+		"left")
+	love.graphics.printf(string.format("fps: %d", love.timer.getFPS()), 0, 50, love.graphics.getWidth(),
+		"left")
 	love.graphics.setColor(Color.ABSOLUTE_WHITE)
+	love.graphics.pop()
+	love.graphics.setCanvas()
+
+	love.graphics.setShader(Shaders.main)
+	love.graphics.draw(m_canvas)
+	love.graphics.setShader()
 end

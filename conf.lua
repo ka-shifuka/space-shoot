@@ -2,6 +2,7 @@
 love.conf = function(T)
 	T.identity = "Space Shoot"
 	T.version = "11.5"
+	T.externalstorage = true
 
 	T.window.width = 1200
 	T.window.height = 600
