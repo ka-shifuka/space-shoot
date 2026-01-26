@@ -55,10 +55,8 @@ Player.draw = function(self)
 	love_graphics.rotate(self.angle)
 	love_graphics.translate(-24, -24)
 
-	love_graphics.draw(Sprites.Player.rocket, 0, 0)
+	love_graphics.draw(Sprites.Rocket.Small, 0, 0)
 	love_graphics.pop()
-
-	love_graphics.circle("line", self.bullet_ancor.x, self.bullet_ancor.y, 2)
 end
 
 ---@param options EntityMetaNewOptions
@@ -96,7 +94,7 @@ Player.new = function(options)
 	instance.fire_anchor = Entities.Effect__Fire.crete_anchor()
 	instance.fire_anchor_distance = 20
 	instance.bullet_ancor = Entities.Bullet__Small.crete_anchor()
-	instance.bullet_ancor_distance = 20
+	instance.bullet_ancor_distance = 15
 
 	setmetatable(instance, Player)
 	return instance ---@type Player

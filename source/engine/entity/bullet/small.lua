@@ -30,7 +30,8 @@ SmallBullet.draw = function(self)
 	love_graphics.push()
 	love_graphics.translate(self.x, self.y)
 	love_graphics.rotate(self.angle)
-	love_graphics.line(0, 0, 0, 10)
+	love_graphics.translate(-24,-24)
+	love_graphics.draw(Sprites.Bullet.Small)
 	love_graphics.pop()
 end
 

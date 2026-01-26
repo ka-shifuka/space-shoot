@@ -1,5 +1,4 @@
 local function slab_u(dt)
-
 	Slab.Update(dt)
 	Slab.PushFont(Font.proto_bold_xs)
 	Slab.BeginWindow("Debug", {
@@ -37,10 +36,18 @@ local function slab_u(dt)
 
 	Slab.PushFont(Font.proto_bold_ss)
 	Slab.Text("entity count: " .. Engine.get_count())
+	Slab.Text("refresh rate: " .. Setting.info__refresh_rate)
+	Slab.Text("fps: " .. love.timer.getFPS())
 	Slab.EndWindow()
 end
 
 function UpdateAll(dt)
+	if Setting.info__refresh_rate == 0 then
+		local _, _, flags = love.window.getMode()
+		Setting.info__refresh_rate = flags.refreshrate
+	end
+	dt = math.min(dt, 1 / Setting.info__refresh_rate)
+
 	World_WF:update(dt)
 	Engine.update(dt)
 	Cam:update(dt)
