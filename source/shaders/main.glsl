@@ -1,5 +1,5 @@
 float warp = 0.3;
-float scan = 0.7;
+float scan = 0.8;
 
 uniform bool uIsCrtEnable;
 

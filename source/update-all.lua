@@ -2,7 +2,9 @@ local function slab_u(dt)
 	Slab.Update(dt)
 	Slab.BeginWindow("Debug Editor", {
 		Title = "Debug Editor",
-		TitleAlignX = "left"
+		TitleAlignX = "left",
+		X = 10,
+		Y = 10
 	})
 	local width = 150
 
