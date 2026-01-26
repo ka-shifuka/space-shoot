@@ -12,7 +12,7 @@ local background_l4 = Camera.new()
 local Cam = {}
 Cam.x = 0
 Cam.y = 0
-Cam.zoom_v = 1.5
+Cam.zoom_v = 1.25
 
 ---@type Player
 Cam.anchor = nil
@@ -41,7 +41,7 @@ Cam.update = function(self, dt)
 	}, TweenEasing.LINEAR)
 	tween:update(dt)
 	private_cam:zoomTo(self.zoom_v - player.velocity__d / 1800)
-	background_l1:zoomTo(1 - player.velocity__d / (1800 * 2))
+	background_l1:zoomTo(2 - player.velocity__d / (1800 * 2))
 	background_l2:zoomTo(1 - player.velocity__d / (1800 * 2))
 	background_l3:zoomTo(1 - player.velocity__d / (1800 * 2))
 	background_l4:zoomTo(1 - player.velocity__d / (1800 * 2))

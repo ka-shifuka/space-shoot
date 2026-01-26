@@ -17,11 +17,12 @@ Engine.add = function(...)
 		end
 	end)
 end
-
 ---@param entity Entity
 Engine.remove = function(entity)
 	table.remove(EntityList, entity.entity__index)
 end
+
+Engine.get_count = function() return #EntityList end
 
 Engine.update = function(dt)
 	for i, entity in ipairs(EntityList) do

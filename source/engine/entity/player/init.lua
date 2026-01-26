@@ -77,7 +77,7 @@ Player.new = function(options)
 
 	instance.state__move = MoveState.IDLE
 	instance.velocity__d = 0
-	instance.speed = 500
+	instance.speed = 450
 	instance.relative_speed = 0
 	instance.is_boost = false
 	instance.boost_force = 800

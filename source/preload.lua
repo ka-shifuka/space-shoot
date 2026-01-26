@@ -13,5 +13,6 @@ Tween = require "vendor.tween"
 Timer = require "vendor.hump.timer"
 Camera = require "vendor.hump.camera"
 Slab = require "vendor.Slab"
+SlabD = require "vendor.Slab.SlabDebug"
 
 Font = require "source.conf.font"

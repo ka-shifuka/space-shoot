@@ -16,6 +16,8 @@ SmallBullet.crete_anchor = function()
 end
 
 SmallBullet.update = function(self, dt)
+	self.timer:update(dt)
+
 	local cos = math.cos(self.angle - math.rad(90))
 	local sin = math.sin(self.angle - math.rad(90))
 
@@ -40,6 +42,13 @@ SmallBullet.new = function(options)
 	instance.y = options.y
 	instance.angle = options.angle
 	instance.speed = 1000
+
+	---@type Hump.Timer
+	instance.timer = Timer.new()
+
+	instance.timer:after(2, function()
+		Engine.remove(instance)
+	end)
 
 	setmetatable(instance, SmallBullet)
 	return instance ---@type SmallBullet

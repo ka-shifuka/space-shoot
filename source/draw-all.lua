@@ -52,7 +52,7 @@ function DrawAll()
 
 	love.graphics.setFont(Font.proto_bold_sm)
 	Cam:draw_background_l1(function()
-		love.graphics.draw(Sprites.Ui.Background__planet, 5, 6)
+		love.graphics.draw(Sprites.Ui.Background__planet, -40, -30)
 	end)
 	Cam:draw_background_l2(function()
 		for _, a in ipairs(as) do
@@ -99,12 +99,16 @@ function DrawAll()
 
 	Cam:draw(function()
 		Engine.draw()
+
+		if Setting.debug__show_physics then
+			World_WF:draw()
+		end
 	end)
 
 
 	Ui:draw()
 
-	love.graphics.setFont(Font.around_bold_xxs)
+	love.graphics.setFont(Font.around_bold_ss)
 	love.graphics.push()
 	love.graphics.setColor(Color.WHITE)
 	love.graphics.translate(
@@ -125,7 +129,8 @@ function DrawAll()
 	love.graphics.setCanvas()
 
 	love.graphics.setShader(Shaders.main)
-	Shaders.main:send("uIsCrtEnable", Setting.enable_crt_shader)
+	Shaders.main:send("uIsCrtEnable", Setting.enable_crt)
+	Shaders.main:send("uWarp", Setting.crt_warp)
 	love.graphics.draw(m_canvas)
 	love.graphics.setShader()
 end
