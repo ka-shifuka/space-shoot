@@ -119,9 +119,13 @@ function DrawAll()
 		"left")
 	love.graphics.setColor(Color.ABSOLUTE_WHITE)
 	love.graphics.pop()
+
+	--- Slab
+	Slab.Draw()
 	love.graphics.setCanvas()
 
 	love.graphics.setShader(Shaders.main)
+	Shaders.main:send("uIsCrtEnable", Setting.enable_crt_shader)
 	love.graphics.draw(m_canvas)
 	love.graphics.setShader()
 end

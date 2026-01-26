@@ -72,9 +72,9 @@ T.attack_btn = Button.new({
 		self.background_image = Sprites.Ui.Control__click_a
 
 		local bullet = Entities.Bullet__Small.new({
-			x = player.x,
-			y = player.y,
-			angle = player.angle
+			x = player.bullet_ancor.x,
+			y = player.bullet_ancor.y,
+			angle = player.bullet_ancor.angle
 		})
 		Engine.add(bullet)
 	end)

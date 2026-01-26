@@ -1,7 +1,9 @@
+Setting  = require "source.conf.setting"
+Sprites = require "source.conf.sprites"
+
 Engine = require "source.engine.engine"
 Entity = require "source.engine.entity"
 
-Sprites = require "source.conf.sprites"
 World_WF = require "source.world"
 Entities = require "source.engine.entities"
 
@@ -9,6 +11,7 @@ Shaders = require "source.shaders"
 MumoColor = require "source.ui.mumo.color"
 Cam = require "source.ui.cam"
 Ui = require "source.ui.ui"
+
 
 require "source.init-all"
 require "source.update-all"

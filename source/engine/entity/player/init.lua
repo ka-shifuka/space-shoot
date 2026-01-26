@@ -42,6 +42,10 @@ Player.update = function(self, dt)
 
 	self.fire_anchor.x = math.cos(self.angle + math.rad(90)) * self.fire_anchor_distance + self.x
 	self.fire_anchor.y = math.sin(self.angle + math.rad(90)) * self.fire_anchor_distance + self.y
+
+	self.bullet_ancor.x = math.cos(self.angle - math.rad(90)) * self.bullet_ancor_distance + self.x
+	self.bullet_ancor.y = math.sin(self.angle - math.rad(90)) * self.bullet_ancor_distance + self.y
+	self.bullet_ancor.angle = self.angle
 end
 
 local love_graphics = love.graphics
@@ -53,6 +57,8 @@ Player.draw = function(self)
 
 	love_graphics.draw(Sprites.Player.rocket, 0, 0)
 	love_graphics.pop()
+
+	love_graphics.circle("line", self.bullet_ancor.x, self.bullet_ancor.y, 2)
 end
 
 ---@param options EntityMetaNewOptions
@@ -89,6 +95,8 @@ Player.new = function(options)
 
 	instance.fire_anchor = Entities.Effect__Fire.crete_anchor()
 	instance.fire_anchor_distance = 20
+	instance.bullet_ancor = Entities.Bullet__Small.crete_anchor()
+	instance.bullet_ancor_distance = 20
 
 	setmetatable(instance, Player)
 	return instance ---@type Player

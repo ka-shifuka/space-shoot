@@ -2,10 +2,13 @@ math.randomseed(os.time())
 require "source.preload"
 
 ---@diagnostic disable-next-line : duplicate-set-field
-love.load = function()
+love.load = function(args)
 	love.graphics.setDefaultFilter("nearest", "nearest")
 	require "source.load"
 	InitAll()
+
+	--- Debug Slab
+	Slab.Initialize(args)
 
 	love.graphics.setBackgroundColor(Color.BLACK)
 end

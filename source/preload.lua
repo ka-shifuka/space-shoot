@@ -12,5 +12,6 @@ Anim8 = require "vendor.anim8"
 Tween = require "vendor.tween"
 Timer = require "vendor.hump.timer"
 Camera = require "vendor.hump.camera"
+Slab = require "vendor.Slab"
 
 Font = require "source.conf.font"

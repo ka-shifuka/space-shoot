@@ -6,6 +6,14 @@
 ---@class SmallBullet : SmallBullet__Field
 local SmallBullet = {}
 SmallBullet.__index = SmallBullet
+SmallBullet.crete_anchor = function()
+	local new_anchor = {}
+	new_anchor.x = 0
+	new_anchor.y = 0
+	new_anchor.angle = 0
+
+	return new_anchor
+end
 
 SmallBullet.update = function(self, dt)
 	local cos = math.cos(self.angle - math.rad(90))
