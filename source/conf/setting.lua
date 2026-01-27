@@ -1,11 +1,10 @@
 local Setting = {}
---- crt shader options
-Setting.enable_crt = true
-Setting.crt_warp = 0.25
+Setting.CrtEnable = true
+Setting.CrtWarp = 0.25
+Setting.CrtScan = 0.4
 
-Setting.info__refresh_rate = 0
+Setting.info__RefreshRate = 0
 
---- Debug
-Setting.debug__show_physics = false
+Setting.debug__ShowPhysics = false
 
 return Setting

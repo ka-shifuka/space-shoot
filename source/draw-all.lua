@@ -100,7 +100,7 @@ function DrawAll()
 	Cam:draw(function()
 		Engine.draw()
 
-		if Setting.debug__show_physics then
+		if Setting.debug__ShowPhysics then
 			World_WF:draw()
 		end
 	end)
@@ -129,8 +129,9 @@ function DrawAll()
 	love.graphics.setCanvas()
 
 	love.graphics.setShader(Shaders.main)
-	Shaders.main:send("uIsCrtEnable", Setting.enable_crt)
-	Shaders.main:send("uWarp", Setting.crt_warp)
+	Shaders.main:send("uIsCrtEnable", Setting.CrtEnable)
+	Shaders.main:send("uWarp", Setting.CrtWarp)
+	Shaders.main:send("uScan", Setting.CrtScan)
 	love.graphics.draw(m_canvas)
 	love.graphics.setShader()
 end

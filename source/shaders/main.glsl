@@ -1,6 +1,5 @@
-float scan = 0.3;
-
 uniform float uWarp;
+uniform float uScan;
 uniform bool uIsCrtEnable;
 vec4 effect(vec4 color, sampler2D texture, vec2 uv, vec2 screen_coord) {
    if (uIsCrtEnable) {
@@ -21,7 +20,7 @@ vec4 effect(vec4 color, sampler2D texture, vec2 uv, vec2 screen_coord) {
       else
       {
          // determine if we are drawing in a scanline
-         float apply = abs(sin(screen_coord.y) * 0.5 * scan);
+         float apply = abs(sin(screen_coord.y) * 0.5 * uScan);
 
          vec4 pixel = texture2D(texture, uv);
          return vec4(mix(pixel.rgb, vec3(0.0), apply), 1.0);
