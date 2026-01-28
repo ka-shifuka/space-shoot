@@ -1,3 +1,5 @@
+local PlayerBehaviour = require "source.engine.entity.player.behavior"
+
 ---@class Player : Player__Field
 local Player = {}
 Player.__index = Player
@@ -14,6 +16,7 @@ Player.set_relative_speed = function(self, relative_speed)
 end
 
 Player.update = function(self, dt)
+	self.timer:update(dt)
 	if self.tween__angle then self.tween__angle:update(dt) end
 
 	local new_angle = math.atan2(self.angle__y, self.angle__x) + math.rad(90)
@@ -46,10 +49,24 @@ Player.update = function(self, dt)
 	self.bullet_ancor.x = math.cos(self.angle - math.rad(90)) * self.bullet_ancor_distance + self.x
 	self.bullet_ancor.y = math.sin(self.angle - math.rad(90)) * self.bullet_ancor_distance + self.y
 	self.bullet_ancor.angle = self.angle
+
+	self.laser_anchor.x = math.cos(self.angle - math.rad(90)) * self.laser_anchor_distance + self.x
+	self.laser_anchor.y = math.sin(self.angle - math.rad(90)) * self.laser_anchor_distance + self.y
 end
 
 local love_graphics = love.graphics
 Player.draw = function(self)
+	if self.nearset_asteroid then
+		love_graphics.setLineWidth(3)
+		love_graphics.setColor(Color.WHITE)
+		love_graphics.line(
+			self.laser_anchor.x, self.laser_anchor.y,
+			self.nearset_asteroid.fire_anchor.x, self.nearset_asteroid.fire_anchor.y
+		)
+		love_graphics.setLineWidth(1)
+		love_graphics.setColor(Color.ABSOLUTE_WHITE)
+	end
+
 	love_graphics.push()
 	love_graphics.translate(self.x, self.y)
 	love_graphics.rotate(self.angle)
@@ -57,6 +74,13 @@ Player.draw = function(self)
 
 	love_graphics.draw(Sprites.Rocket.Small, 0, 0)
 	love_graphics.pop()
+
+	if self.nearset_asteroid then
+		love_graphics.push()
+		love_graphics.translate(self.nearset_asteroid.x, self.nearset_asteroid.y)
+		love_graphics.draw(Sprites.Ui.Control__scan_cursor, -16, -16)
+		love_graphics.pop()
+	end
 end
 
 ---@param options EntityMetaNewOptions
@@ -73,7 +97,10 @@ Player.new = function(options)
 	instance.angle__y = 0
 	instance.tween__angle = nil
 
+	---@type Hump.Timer
+	instance.timer = Timer.new()
 	instance.state__move = MoveState.IDLE
+
 	instance.velocity__d = 0
 	instance.speed = 450
 	instance.relative_speed = 0
@@ -91,10 +118,18 @@ Player.new = function(options)
 	instance.physics:setCollisionClass(CollisionClass.PLAYER)
 	instance.physics:setObject(instance)
 
+	---@type Asteroid | nil
+	instance.nearset_asteroid = nil
+
 	instance.fire_anchor = Entities.Effect__Fire.crete_anchor()
 	instance.fire_anchor_distance = 20
 	instance.bullet_ancor = Entities.Bullet__Small.crete_anchor()
 	instance.bullet_ancor_distance = 15
+	instance.laser_anchor = { x = 0, y = 0 }
+	instance.laser_anchor_distance = 15
+
+	instance.behavior = PlayerBehaviour.new(instance)
+	instance.behavior:start_task()
 
 	setmetatable(instance, Player)
 	return instance ---@type Player

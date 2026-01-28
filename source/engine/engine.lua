@@ -23,6 +23,7 @@ Engine.remove = function(entity)
 end
 
 Engine.get_count = function() return #EntityList end
+Engine.get_list = function() return EntityList end
 
 Engine.update = function(dt)
 	for i, entity in ipairs(EntityList) do

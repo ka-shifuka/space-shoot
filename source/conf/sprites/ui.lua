@@ -3,6 +3,7 @@ local new_image = love.graphics.newImage
 local Ui = {}
 
 Ui.Control__joystick = new_image("assets/ui/control/joystick.png")
+Ui.Control__scan_cursor  = new_image("assets/ui/control/scan-cursor.png")
 Ui.Control__a = new_image("assets/ui/control/a.png")
 Ui.Control__b = new_image("assets/ui/control/b.png")
 

@@ -7,5 +7,7 @@ love.conf = function(T)
 	T.window.width = 1200
 	T.window.height = 600
 	T.window.fullscreen = true
+
+	T.window.highdpi = true
 	T.window.usedpiscale = true
 end

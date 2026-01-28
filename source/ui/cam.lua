@@ -17,6 +17,10 @@ local Cam = {}
 Cam.x = 0
 Cam.y = 0
 Cam.zoom_v = 1.25
+Cam.scale_addition = 0
+
+---@type Player
+Cam.anchor = nil
 
 ---@diagnostic disable-next-line : unused-local
 Cam.get_background_l2_sfactor = function(self)
@@ -35,10 +39,6 @@ end
 Cam.get_background_l3_positiom = function(self)
 	return background_l3_position.x, background_l3_position.y
 end
-
-
----@type Player
-Cam.anchor = nil
 
 ---@diagnostic disable-next-line : unused-local
 Cam.world_coord = function(self, x, y)
@@ -68,10 +68,12 @@ Cam.update = function(self, dt)
 	background_l3_position.x = self.x / background_l3_scale_factor
 	background_l3_position.y = self.y / background_l3_scale_factor
 
-	private_cam:zoomTo(self.zoom_v - player.velocity__d / 1800)
-	background_l1:zoomTo(2 - player.velocity__d / (1800 * 2))
-	background_l2:zoomTo(0.8 - player.velocity__d / (1800 * 2))
-	background_l3:zoomTo(0.8 - player.velocity__d / (1800 * 2))
+	local dfactor = 2200
+
+	private_cam:zoomTo(self.scale_addition + self.zoom_v - player.velocity__d / dfactor)
+	background_l1:zoomTo(self.scale_addition + 1.8 - player.velocity__d / (dfactor * 2))
+	background_l2:zoomTo(self.scale_addition + 0.8 - player.velocity__d / (dfactor * 2))
+	background_l3:zoomTo(self.scale_addition + 0.8 - player.velocity__d / (dfactor * 2))
 
 	private_cam:lookAt(self.x, self.y)
 

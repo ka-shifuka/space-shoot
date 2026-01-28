@@ -48,7 +48,7 @@ cl(8000)
 local m_canvas = love.graphics.newCanvas()
 local function draw_all_background()
 	Cam:draw_background_l1(function()
-		love.graphics.draw(Sprites.Ui.Background__planet, -40, -30)
+		love.graphics.draw(Sprites.Ui.Background__planet, 40, 30)
 	end)
 	Cam:draw_background_l2(function()
 		for _, a in ipairs(as) do

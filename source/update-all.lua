@@ -17,25 +17,25 @@ local function slab_u(dt)
 		Setting.debug__ShowPhysics = not Setting.debug__ShowPhysics
 	end
 
-	Slab.PushFont(Font.proto_bold_xxs)
-	Slab.Text("crt wrap and scan")
-	Slab.PopFont()
-	if
-		 Slab.Input("crt wrap", {
-			 Text = Setting.CrtWarp,
-			 NumbersOnly = true,
-		 })
-	then
-		Setting.CrtWarp = Slab.GetInputNumber()
-	end
-	if
-		 Slab.Input("crt scan", {
-			 Text = Setting.CrtScan,
-			 NumbersOnly = true,
-		 })
-	then
-		Setting.CrtScan = Slab.GetInputNumber()
-	end
+	-- Slab.PushFont(Font.proto_bold_xxs)
+	-- Slab.Text("crt wrap and scan")
+	-- Slab.PopFont()
+	-- if
+	-- 	 Slab.Input("crt wrap", {
+	-- 		 Text = Setting.CrtWarp,
+	-- 		 NumbersOnly = true,
+	-- 	 })
+	-- then
+	-- 	Setting.CrtWarp = Slab.GetInputNumber()
+	-- end
+	-- if
+	-- 	 Slab.Input("crt scan", {
+	-- 		 Text = Setting.CrtScan,
+	-- 		 NumbersOnly = true,
+	-- 	 })
+	-- then
+	-- 	Setting.CrtScan = Slab.GetInputNumber()
+	-- end
 
 	if Slab.Button("create asteroid cluster", { W = width }) then
 		cl(player.x)
