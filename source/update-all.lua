@@ -37,6 +37,9 @@ local function slab_u(dt)
 		Setting.CrtScan = Slab.GetInputNumber()
 	end
 
+	if Slab.Button("create asteroid cluster", { W = width }) then
+		cl(player.x)
+	end
 	if Slab.Button("reset game", { W = width }) then
 		love.event.quit("restart")
 	end

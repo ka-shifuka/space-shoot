@@ -70,8 +70,8 @@ Cam.update = function(self, dt)
 
 	private_cam:zoomTo(self.zoom_v - player.velocity__d / 1800)
 	background_l1:zoomTo(2 - player.velocity__d / (1800 * 2))
-	background_l2:zoomTo(1 - player.velocity__d / (1800 * 2))
-	background_l3:zoomTo(1 - player.velocity__d / (1800 * 2))
+	background_l2:zoomTo(0.8 - player.velocity__d / (1800 * 2))
+	background_l3:zoomTo(0.8 - player.velocity__d / (1800 * 2))
 
 	private_cam:lookAt(self.x, self.y)
 

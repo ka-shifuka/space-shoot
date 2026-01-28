@@ -8,6 +8,9 @@ Entity.new = function(type, priority)
 	--- This is superclass for every Entity
 	---@class Entity
 	---
+	--- This field is auto generated for meta class
+	---@field _KEY string
+	---
 	--- This field need to redefine in meta class
 	---@field update fun(self, dt:number)
 	--- This field need to redefine in meta class
