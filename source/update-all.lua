@@ -1,6 +1,6 @@
 local function slab_u(dt)
 	Slab.Update(dt)
-	Slab.PushFont(Font.proto_bold_xs)
+	Slab.PushFont(Font.proto_bold_sm)
 	Slab.BeginWindow("Debug", {
 		Title = "Debug",
 		TitleAlignX = "left",
@@ -9,6 +9,7 @@ local function slab_u(dt)
 	})
 	local width = 150
 
+	Slab.PushFont(Font.proto_bold_xxs)
 	if Slab.CheckBox(Setting.CrtEnable, "crt shader") then
 		Setting.CrtEnable = not Setting.CrtEnable
 	end
@@ -40,7 +41,8 @@ local function slab_u(dt)
 		love.event.quit("restart")
 	end
 
-	Slab.PushFont(Font.proto_bold_xs)
+	Slab.PushFont(Font.proto_bold_xxs)
+	Slab.Text(string.format("x: %d, y: %d", player.x, player.y))
 	Slab.Text("entity count: " .. Engine.get_count())
 	Slab.Text("refresh rate: " .. Setting.info__RefreshRate)
 	Slab.Text("fps: " .. love.timer.getFPS())

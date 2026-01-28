@@ -2,6 +2,7 @@
 ---@enum EntityType
 local EntityType = {
 	PLAYER = 1,
+	ROCKET = 2,
 	EFFECT__FIRE = 100,
 	BULLET = 200,
 }

@@ -1,0 +1,3 @@
+local Asteroid = {}
+
+return Asteroid

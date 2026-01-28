@@ -2,6 +2,7 @@
 ---@enum Z
 local Z = {
 	PLAYER = 1000,
+	ROCKET = 999,
 	EFFECT__FIRE = 1001,
 	BULLET = 1002,
 }
